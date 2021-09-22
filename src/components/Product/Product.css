@@ -2,8 +2,18 @@
     display: flex;
     border-bottom: 2px solid lightgray;
     margin-right: 5px;
+    padding-bottom: 6px;
 }
 .product-name{
     color: blue;
     font-weight: 500;
+}
+
+.regular-btn{
+    background-color: #f0c14b;
+    width: 200px;
+    height: 26px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
 }
