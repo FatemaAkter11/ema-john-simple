@@ -9,6 +9,8 @@ const Shop = () => {
 
     const [cart, setCart] = useState([]);
 
+    const [displayProducts, setDisplayProducts] = useState([]);
+
     useEffect(() => {
         // console.log('product API Called');
         fetch('./products.JSON')
@@ -16,6 +18,7 @@ const Shop = () => {
             .then(data => {
                 setProducts(data);
                 // console.log('products received');
+                setDisplayProducts(data);
             });
     }, []);
 
@@ -49,22 +52,37 @@ const Shop = () => {
         addToDb(product.key);
     }
 
-    return (
-        <div className="shop-container">
-            <div className="product-container">
-                {/* <h3>Products: {products.length}</h3> */}
-                {
-                    products.map(product => <Product
-                        key={product.key}
-                        product={product}
-                        handleAddToCart={handleAddToCart}
-                    >
-                    </Product>)
-                }
-            </div>
-            <div className="cart-container">
-                <Cart cart={cart}></Cart>
+    const handleSearch = event => {
+        // console.log(event.target.value);
+        const searchText = event.target.value;
+        const matchedProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
+        setDisplayProducts(matchedProducts);
+        console.log(matchedProducts.length);
+    }
 
+    return (
+        <div>
+            <div className="search-container">
+                <input type="text"
+                    onChange={handleSearch}
+                    placeholder="Please Search Product" />
+            </div>
+            <div className="shop-container">
+                <div className="product-container">
+                    {/* <h3>Products: {products.length}</h3> */}
+                    {
+                        displayProducts.map(product => <Product
+                            key={product.key}
+                            product={product}
+                            handleAddToCart={handleAddToCart}
+                        >
+                        </Product>)
+                    }
+                </div>
+                <div className="cart-container">
+                    <Cart cart={cart}></Cart>
+
+                </div>
             </div>
         </div>
     );
