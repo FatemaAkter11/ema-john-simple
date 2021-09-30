@@ -8,7 +8,7 @@ const Shop = () => {
     const [products, setProducts] = useState([]);
 
     const [cart, setCart] = useState([]);
-
+    //products to be rendered on the UI
     const [displayProducts, setDisplayProducts] = useState([]);
 
     useEffect(() => {
